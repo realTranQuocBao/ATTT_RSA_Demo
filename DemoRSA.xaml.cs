@@ -203,7 +203,7 @@ namespace ATTT_NHOM6_RSA_DEMO
             // Chuyen xau thanh ma Unicode
             byte[] mh_temp1 = Encoding.Unicode.GetBytes(ChuoiVao);
             string base64 = Convert.ToBase64String(mh_temp1);
-            MessageBox.Show(base64, "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
+            //MessageBox.Show(base64, "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Chuyen xau thanh ma Unicode
             int[] mh_temp2 = new int[base64.Length];
