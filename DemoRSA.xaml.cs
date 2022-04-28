@@ -37,10 +37,10 @@ namespace ATTT_NHOM6_RSA_DEMO
             InitializeComponent();
             rd_tdRSA.IsChecked = true;
             rd_tcRSA.IsChecked = false;
-            rsa_maHoaBanRoMoi.IsEnabled = false;            
+            //rsa_maHoaBanRoMoi.IsEnabled = false;
 
         }
-   
+
         private bool nguyenToCungNhau(int ai, int bi)// "Hàm kiểm tra hai số nguyên tố cùng nhau"
         {
             bool ktx_;
@@ -56,16 +56,44 @@ namespace ATTT_NHOM6_RSA_DEMO
             else ktx_ = false;
             return ktx_;
         }
-       
+
         #region Code mã hóa RSA
         private void reset_rsa()
         {
-            rsa_soP.Text = rsa_soQ.Text = rsa_soPhiN.Text = rsa_soN.Text = rsa_soE.Text = rsa_soD.Text = string.Empty;
+            resetKeyGenerate();
+            resetEncrypt();
+            resetDecrypt();
+        }
 
+        public void resetKeyGenerate()
+        {
+            rsa_soP.Text = "";
+            rsa_soQ.Text = "";
+            rsa_soPhiN.Text = "";
+            rsa_soN.Text = "";
+            rsa_soE.Text = "";
+            rsa_soD.Text = "";
+            rsa_sourceD.Text = "";
+            rsa_sourceN.Text = "";
+        }
+
+        public void resetDecrypt()
+        {
+            rsa_banMaHoaGuiDen.Text = "";
+            rsa_banGiaiMa.Text = "";
+        }
+
+        public void resetEncrypt()
+        {
+            rsa_desE.Text = "";
+            rsa_desN.Text = "";
+            rsa_BanRo.Text = "";
+            rsa_BanMaHoa.Text = "";
+            
         }
 
         int RSA_soP, RSA_soQ, RSA_soN, RSA_soE, RSA_soD, RSA_soPhi_n;
-        public int RSA_d_dau = 0;
+        //public int RSA_d_dau = 0;
         private int RSA_ChonSoNgauNhien()
         {
             Random rd = new Random();
@@ -166,8 +194,10 @@ namespace ATTT_NHOM6_RSA_DEMO
                 RSA_soD = (1 + i * RSA_soPhi_n) / RSA_soE;
             }
             rsa_soD.Text = RSA_soD.ToString();
+            rsa_sourceD.Text = RSA_soD.ToString();
+            rsa_sourceN.Text = RSA_soN.ToString();
         }
-        public void RSA_MaHoa(string ChuoiVao)
+        public void RSA_MaHoa(string ChuoiVao, int desE, int desN)
         {
             // taoKhoa();
             // Chuyen xau thanh ma Unicode
@@ -185,7 +215,7 @@ namespace ATTT_NHOM6_RSA_DEMO
             int[] mh_temp3 = new int[mh_temp2.Length];
             for (int i = 0; i < mh_temp2.Length; i++)
             {
-                mh_temp3[i] = RSA_mod(mh_temp2[i], RSA_soE, RSA_soN); // mã hóa
+                mh_temp3[i] = RSA_mod(mh_temp2[i], desE, desN); // mã hóa
             }
 
             //Chuyển sang kiểu kí tự trong bảng mã Unicode
@@ -196,7 +226,7 @@ namespace ATTT_NHOM6_RSA_DEMO
             }
             byte[] data = Encoding.Unicode.GetBytes(str);
             rsa_BanMaHoa.Text = Convert.ToBase64String(data);
-            rsa_banMaHoaGuiDen.Text = Convert.ToBase64String(data);
+            //rsa_banMaHoaGuiDen.Text = Convert.ToBase64String(data);
 
         }
         // hàm giải mã
@@ -228,7 +258,6 @@ namespace ATTT_NHOM6_RSA_DEMO
         }
         private void rsa_TaoKhoa_Click(object sender, RoutedEventArgs e)
         {
-
             if (rd_tdRSA.IsChecked == true && rd_tcRSA.IsChecked == false)
             {
                 reset_rsa();
@@ -242,12 +271,13 @@ namespace ATTT_NHOM6_RSA_DEMO
                 rsa_soP.Text = RSA_soP.ToString();
                 rsa_soQ.Text = RSA_soQ.ToString();
                 RSA_taoKhoa();
-                RSA_d_dau = 1;
+                //RSA_d_dau = 1;
                 rsa_TaoKhoa.Content = "Tạo lại khóa mới";
-                rsa_TaoKhoa.IsEnabled = false;
-                rd_tcRSA.IsEnabled = false;
-                rd_tdRSA.IsEnabled = false;
-                rsa_btMaHoa.IsEnabled = true;
+                rsa_btGiaiMa.IsEnabled = true;
+                //rsa_TaoKhoa.IsEnabled = false;
+                //rd_tcRSA.IsEnabled = false;
+                //rd_tdRSA.IsEnabled = false;
+                //rsa_btMaHoa.IsEnabled = true;
             }
             else
             {
@@ -283,9 +313,10 @@ namespace ATTT_NHOM6_RSA_DEMO
                                     RSA_taoKhoa();
                                     rsa_soP.Text = RSA_soP.ToString();
                                     rsa_soQ.Text = RSA_soQ.ToString();
-                                    RSA_d_dau = 1;
+                                    rsa_btGiaiMa.IsEnabled = true;
+                                    //RSA_d_dau = 1;
                                     //bt_taokhoaTuychonMoi.Visible = true;
-                                    rsa_TaoKhoa.IsEnabled = false;
+                                    //rsa_TaoKhoa.IsEnabled = false;
                                 }
                             }
                         }
@@ -297,8 +328,8 @@ namespace ATTT_NHOM6_RSA_DEMO
 
         private void rsa_btMaHoa_Click(object sender, RoutedEventArgs e)
         {
-            if (RSA_d_dau != 1)
-            { MessageBox.Show("Bạn chưa tạo khóa!", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Information); }
+            if (rsa_desN.Text == "" || rsa_desE.Text == "")
+            { MessageBox.Show("Bạn chưa nhập khóa công khai của người nhận!", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Information); }
 
             else
             {
@@ -312,10 +343,12 @@ namespace ATTT_NHOM6_RSA_DEMO
                     // thực hiện mã hóa
                     try
                     {
-                        RSA_MaHoa(rsa_BanRo.Text);
-                        rsa_btMaHoa.IsEnabled = false;
-                        rsa_btGiaiMa.IsEnabled = true;
-                        RSA_d_dau = 2;
+                        int desE = Int32.Parse(rsa_desE.Text);
+                        int desN = Int32.Parse(rsa_desN.Text);
+                        RSA_MaHoa(rsa_BanRo.Text, desE, desN);
+                        //rsa_btMaHoa.IsEnabled = false;
+                        //rsa_btGiaiMa.IsEnabled = true;
+                        //RSA_d_dau = 2;
                     }
                     catch (Exception ex)
                     {
@@ -328,8 +361,14 @@ namespace ATTT_NHOM6_RSA_DEMO
         private void rsa_btGiaiMa_Click(object sender, RoutedEventArgs e)
         {
 
-            if (RSA_d_dau != 2)
+            if (rsa_sourceN.Text == "" || rsa_sourceD.Text == "")
+            {
                 MessageBox.Show("Bạn phải tạo khóa trước ", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (rsa_banMaHoaGuiDen.Text == "")
+            {
+                MessageBox.Show("Bạn chưa nhập bản mã ", "Thông Báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
             else
                 try
                 {
@@ -340,8 +379,8 @@ namespace ATTT_NHOM6_RSA_DEMO
                 {
                     MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            rsa_btGiaiMa.IsEnabled = false;
-            RSA_d_dau = 1;
+            //rsa_btGiaiMa.IsEnabled = false;
+            //RSA_d_dau = 1;
             rsa_maHoaBanRoMoi.IsEnabled = true;
         }
 
@@ -349,7 +388,7 @@ namespace ATTT_NHOM6_RSA_DEMO
         private void rd_tdRSA_Checked(object sender, RoutedEventArgs e)
         {
             rsa_TaoKhoa.IsEnabled = true;
-            rsa_soP.Text = rsa_soQ.Text = rsa_soPhiN.Text = rsa_soN.Text = rsa_soE.Text = rsa_soD.Text = string.Empty;
+            rsa_soP.Text = rsa_soQ.Text = rsa_soPhiN.Text = rsa_soN.Text = rsa_soE.Text = rsa_soD.Text = "";
             rsa_soP.IsEnabled = rsa_soQ.IsEnabled = rsa_soPhiN.IsEnabled = rsa_soN.IsEnabled = rsa_soE.IsEnabled = rsa_soD.IsEnabled = false;
 
         }
@@ -357,7 +396,7 @@ namespace ATTT_NHOM6_RSA_DEMO
         private void rd_tcRSA_Checked(object sender, RoutedEventArgs e)
         {
             rsa_TaoKhoa.IsEnabled = true;
-            rsa_soP.Text = rsa_soQ.Text = rsa_soPhiN.Text = rsa_soN.Text = rsa_soE.Text = rsa_soD.Text = string.Empty;
+            rsa_soP.Text = rsa_soQ.Text = rsa_soPhiN.Text = rsa_soN.Text = rsa_soE.Text = rsa_soD.Text = "";
             rsa_soP.IsEnabled = rsa_soQ.IsEnabled = rsa_soPhiN.IsEnabled = rsa_soN.IsEnabled = rsa_soE.IsEnabled = rsa_soD.IsEnabled = true;
         }
 
@@ -373,10 +412,11 @@ namespace ATTT_NHOM6_RSA_DEMO
 
         private void rsa_maHoaBanRoMoi_Click(object sender, RoutedEventArgs e)
         {
-            rsa_btMaHoa.IsEnabled = true;
-            rsa_BanRo.Text = rsa_BanMaHoa.Text = rsa_banMaHoaGuiDen.Text = rsa_banGiaiMa.Text = string.Empty;
-            RSA_d_dau = 1;
-            rsa_maHoaBanRoMoi.IsEnabled = false;
+            //rsa_btMaHoa.IsEnabled = true;
+            //rsa_BanRo.Text = rsa_BanMaHoa.Text = rsa_banMaHoaGuiDen.Text = rsa_banGiaiMa.Text = "";
+            ////RSA_d_dau = 1;
+            //rsa_maHoaBanRoMoi.IsEnabled = false;
+            resetDecrypt();
         }
 
         private void rsa_btThoat_Click(object sender, RoutedEventArgs e)
@@ -386,17 +426,17 @@ namespace ATTT_NHOM6_RSA_DEMO
 
         private void rsa_TaoKhoaMoi_Click(object sender, RoutedEventArgs e)
         {
-            rsa_maHoaBanRoMoi.IsEnabled = false;
-            RSA_d_dau = 0;
-            rsa_TaoKhoa.IsEnabled = true;
-            rd_tdRSA.IsEnabled = true;
-            rd_tdRSA.IsChecked = true;
-            rd_tcRSA.IsEnabled = true;
-            rd_tcRSA.IsChecked = false;
-            rsa_soP.Text = rsa_soQ.Text = rsa_soPhiN.Text = rsa_soN.Text = rsa_soE.Text = rsa_soD.Text = string.Empty;
-
-            rsa_banGiaiMa.Text = rsa_BanMaHoa.Text = rsa_BanRo.Text = rsa_banMaHoaGuiDen.Text = string.Empty;
-            rsa_btGiaiMa.IsEnabled = false; rsa_btMaHoa.IsEnabled = false;
+            //rsa_maHoaBanRoMoi.IsEnabled = false;
+            ////RSA_d_dau = 0;
+            //rsa_TaoKhoa.IsEnabled = true;
+            //rd_tdRSA.IsEnabled = true;
+            //rd_tdRSA.IsChecked = true;
+            //rd_tcRSA.IsEnabled = true;
+            //rd_tcRSA.IsChecked = false;
+            //rsa_soP.Text = rsa_soQ.Text = rsa_soPhiN.Text = rsa_soN.Text = rsa_soE.Text = rsa_soD.Text = "";
+            //rsa_banGiaiMa.Text = rsa_BanMaHoa.Text = rsa_BanRo.Text = rsa_banMaHoaGuiDen.Text = "";
+            //rsa_btGiaiMa.IsEnabled = false; rsa_btMaHoa.IsEnabled = false;
+            resetEncrypt();
 
         }
 
