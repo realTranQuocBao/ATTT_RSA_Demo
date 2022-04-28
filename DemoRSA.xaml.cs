@@ -203,6 +203,7 @@ namespace ATTT_NHOM6_RSA_DEMO
             // Chuyen xau thanh ma Unicode
             byte[] mh_temp1 = Encoding.Unicode.GetBytes(ChuoiVao);
             string base64 = Convert.ToBase64String(mh_temp1);
+            MessageBox.Show(base64, "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Chuyen xau thanh ma Unicode
             int[] mh_temp2 = new int[base64.Length];
@@ -244,7 +245,12 @@ namespace ATTT_NHOM6_RSA_DEMO
             int[] c = new int[b.Length];
             for (int i = 0; i < c.Length; i++)
             {
-                c[i] = RSA_mod(b[i], RSA_soD, RSA_soN);// giải mã
+                int RSA_soD_input, RSA_soN_input;
+                RSA_soD_input = Int32.Parse(rsa_sourceD.Text);
+                RSA_soN_input = Int32.Parse(rsa_sourceN.Text);
+                //MessageBox.Show(RSA_soD_input.ToString()+"_"+RSA_soN_input.ToString(), "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                c[i] = RSA_mod(b[i], RSA_soD_input, RSA_soN_input);// giải mã
             }
 
             string str = "";

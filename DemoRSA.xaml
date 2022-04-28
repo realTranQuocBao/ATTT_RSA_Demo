@@ -34,7 +34,7 @@
                     <TextBox HorizontalAlignment="Left" Height="110" Margin="618,320,0,0" TextWrapping="Wrap" Name="rsa_banGiaiMa" VerticalAlignment="Top" Width="240" />
                     <Label Content="Giải mã nhận được bản rõ" HorizontalAlignment="Left" Margin="612,290,0,0" VerticalAlignment="Top" />
                     <Label Content="Bản mã hóa nhận được" HorizontalAlignment="Left" Margin="612,105,0,0" VerticalAlignment="Top" />
-                    <Button Name="rsa_btGiaiMa" Content="Thực hiện giải mã" HorizontalAlignment="Left" Margin="700,264,0,0" VerticalAlignment="Top" Width="160" Click="rsa_btGiaiMa_Click" IsEnabled="False" Height="26" />
+                    <Button Name="rsa_btGiaiMa" Content="Thực hiện giải mã" HorizontalAlignment="Left" Margin="700,264,0,0" VerticalAlignment="Top" Width="160" Click="rsa_btGiaiMa_Click" IsEnabled="True" Height="26" />
                     <Button Content="Giải mã mới" Name="rsa_maHoaBanRoMoi" HorizontalAlignment="Left" Margin="698,449,0,0" VerticalAlignment="Top" Width="160" Click="rsa_maHoaBanRoMoi_Click" Height="26" />
                     <Button Name="rsa_TaoKhoaMoi" Content="Mã hóa mới" HorizontalAlignment="Left" Margin="427,449,0,0" VerticalAlignment="Top" Width="160" Height="26" Click="rsa_TaoKhoaMoi_Click" />
                     <Label Content="Khóa công khai: n = " HorizontalAlignment="Left" Margin="383,35,0,0" VerticalAlignment="Top" Width="120" />
@@ -42,9 +42,9 @@
                     <Label Content="Khóa công khai: e = " HorizontalAlignment="Left" Margin="383,74,0,0" VerticalAlignment="Top" Width="120" />
                     <TextBox PreviewTextInput="rsa_soP_PreviewTextInput" HorizontalAlignment="Left" Height="23" Margin="503,75,0,0" TextWrapping="Wrap" x:Name="rsa_desE" VerticalAlignment="Top" Width="83" />
                     <Label Content="Khóa bí mật: n = " HorizontalAlignment="Left" Margin="674,34,0,0" VerticalAlignment="Top" Width="101" />
-                    <TextBox PreviewTextInput="rsa_soP_PreviewTextInput" HorizontalAlignment="Left" Height="23" Margin="775,37,0,0" TextWrapping="Wrap" x:Name="rsa_sourceN" VerticalAlignment="Top" Width="83" IsEnabled="False" />
+                    <TextBox PreviewTextInput="rsa_soP_PreviewTextInput" HorizontalAlignment="Left" Height="23" Margin="775,37,0,0" TextWrapping="Wrap" x:Name="rsa_sourceN" VerticalAlignment="Top" Width="83" IsEnabled="True" />
                     <Label Content="Khóa bí mật: d = " HorizontalAlignment="Left" Margin="674,72,0,0" VerticalAlignment="Top" Width="101" />
-                    <TextBox PreviewTextInput="rsa_soP_PreviewTextInput" HorizontalAlignment="Left" Height="23" Margin="775,75,0,0" TextWrapping="Wrap" x:Name="rsa_sourceD" VerticalAlignment="Top" Width="83" IsEnabled="False" />
+                    <TextBox PreviewTextInput="rsa_soP_PreviewTextInput" HorizontalAlignment="Left" Height="23" Margin="775,75,0,0" TextWrapping="Wrap" x:Name="rsa_sourceD" VerticalAlignment="Top" Width="83" IsEnabled="True" />
                     <Label Content="Giải mã" HorizontalAlignment="Left" Margin="612,10,0,0" VerticalAlignment="Top" UseLayoutRounding="True" />
                 </Grid>
             </TabItem>
