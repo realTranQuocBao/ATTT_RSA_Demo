@@ -203,7 +203,6 @@ namespace ATTT_NHOM6_RSA_DEMO
             // Chuyen xau thanh ma Unicode
             byte[] mh_temp1 = Encoding.Unicode.GetBytes(ChuoiVao);
             string base64 = Convert.ToBase64String(mh_temp1);
-            MessageBox.Show(base64, "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
 
             // Chuyen xau thanh ma Unicode
             int[] mh_temp2 = new int[base64.Length];
@@ -211,6 +210,7 @@ namespace ATTT_NHOM6_RSA_DEMO
             {
                 mh_temp2[i] = (int)base64[i];
             }
+
 
             //Mảng a chứa các kí tự đã mã hóa
             int[] mh_temp3 = new int[mh_temp2.Length];
@@ -228,6 +228,17 @@ namespace ATTT_NHOM6_RSA_DEMO
             byte[] data = Encoding.Unicode.GetBytes(str);
             rsa_BanMaHoa.Text = Convert.ToBase64String(data);
             //rsa_banMaHoaGuiDen.Text = Convert.ToBase64String(data);
+
+            //MessageBox.Show(
+            //    "string: "+ChuoiVao
+            //    + "\nbyte[]1: " + string.Join(", ", mh_temp1)
+            //    + "\nbase64: " + base64
+            //    + "\nint[]2: " + string.Join(", ", mh_temp2)
+            //    + "\nint[]3: " + string.Join(", ", mh_temp3)
+            //    + "\nstr: " + str
+            //    + "\nbyte[]: " + string.Join(", ", data)
+            //    + "\nbase64: " + Convert.ToBase64String(data)
+            //    , "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
 
         }
         // hàm giải mã
@@ -260,6 +271,19 @@ namespace ATTT_NHOM6_RSA_DEMO
             }
             byte[] data2 = Convert.FromBase64String(str);
             rsa_banGiaiMa.Text = Encoding.Unicode.GetString(data2);
+
+
+            //MessageBox.Show(
+            //    "base64, bản mã: " + ChuoiVao
+            //    + "\nbyte[] temp2: " + string.Join(", ", temp2)
+            //    + "\nstring giaima: " + giaima
+            //    + "\nint[]b: " + string.Join(", ", b)
+            //    + "\nint[]c: " + string.Join(", ", c)
+            //    + "\nstr: " + str
+            //    + "\nbyte[]: " + string.Join(", ", data2)
+            //    + "\nstring, bản rõ: " + Encoding.Unicode.GetString(data2)
+            //    , "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
+
 
         }
         private void rsa_TaoKhoa_Click(object sender, RoutedEventArgs e)
