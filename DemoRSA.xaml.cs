@@ -12,12 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using System.IO;
-
 using Microsoft.Win32;
 using System.Security.Cryptography;
-
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -39,22 +36,6 @@ namespace ATTT_NHOM6_RSA_DEMO
             rd_tcRSA.IsChecked = false;
             //rsa_maHoaBanRoMoi.IsEnabled = false;
 
-        }
-
-        private bool nguyenToCungNhau(int ai, int bi)// "Hàm kiểm tra hai số nguyên tố cùng nhau"
-        {
-            bool ktx_;
-            // giải thuật Euclid;
-            int temp;
-            while (bi != 0)
-            {
-                temp = ai % bi;
-                ai = bi;
-                bi = temp;
-            }
-            if (ai == 1) { ktx_ = true; }
-            else ktx_ = false;
-            return ktx_;
         }
 
         #region Code mã hóa RSA
@@ -182,7 +163,7 @@ namespace ATTT_NHOM6_RSA_DEMO
                 Random RSA_rd = new Random();
                 RSA_soE = RSA_rd.Next(2, RSA_soPhi_n);
             }
-            while (!nguyenToCungNhau(RSA_soE, RSA_soPhi_n));
+            while (!RSA_nguyenToCungNhau(RSA_soE, RSA_soPhi_n));
             rsa_soE.Text = RSA_soE.ToString();
 
             //Tính d là nghịch đảo modular của e
@@ -238,7 +219,7 @@ namespace ATTT_NHOM6_RSA_DEMO
             //    + "\nstr: " + str
             //    + "\nbyte[]: " + string.Join(", ", data)
             //    + "\nbase64: " + Convert.ToBase64String(data)
-            //    , "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    , "Show data for Documents", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
         // hàm giải mã
@@ -259,7 +240,6 @@ namespace ATTT_NHOM6_RSA_DEMO
                 int RSA_soD_input, RSA_soN_input;
                 RSA_soD_input = Int32.Parse(rsa_sourceD.Text);
                 RSA_soN_input = Int32.Parse(rsa_sourceN.Text);
-                //MessageBox.Show(RSA_soD_input.ToString()+"_"+RSA_soN_input.ToString(), "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 c[i] = RSA_mod(b[i], RSA_soD_input, RSA_soN_input);// giải mã
             }
@@ -282,7 +262,7 @@ namespace ATTT_NHOM6_RSA_DEMO
             //    + "\nstr: " + str
             //    + "\nbyte[]: " + string.Join(", ", data2)
             //    + "\nstring, bản rõ: " + Encoding.Unicode.GetString(data2)
-            //    , "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    , "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Information);
 
 
         }
