@@ -211,15 +211,15 @@ namespace ATTT_NHOM6_RSA_DEMO
             //rsa_banMaHoaGuiDen.Text = Convert.ToBase64String(data);
 
             //MessageBox.Show(
-            //    "string: "+ChuoiVao
-            //    + "\nbyte[]1: " + string.Join(", ", mh_temp1)
-            //    + "\nbase64: " + base64
-            //    + "\nint[]2: " + string.Join(", ", mh_temp2)
-            //    + "\nint[]3: " + string.Join(", ", mh_temp3)
-            //    + "\nstr: " + str
-            //    + "\nbyte[]: " + string.Join(", ", data)
-            //    + "\nbase64: " + Convert.ToBase64String(data)
-            //    , "Show data for Documents", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    "(1): " + ChuoiVao
+            //    + "\n(2): " + string.Join(", ", mh_temp1)
+            //    + "\n(3): " + base64
+            //    + "\n(4): " + string.Join(", ", mh_temp2)
+            //    + "\n(5): " + string.Join(", ", mh_temp3)
+            //    + "\n(6): " + str
+            //    + "\n(7): " + string.Join(", ", data)
+            //    + "\n(8): " + Convert.ToBase64String(data)
+            //    , "Show data for Documents: encrypt", MessageBoxButton.OK, MessageBoxImage.Information);
 
         }
         // hàm giải mã
@@ -254,15 +254,15 @@ namespace ATTT_NHOM6_RSA_DEMO
 
 
             //MessageBox.Show(
-            //    "base64, bản mã: " + ChuoiVao
-            //    + "\nbyte[] temp2: " + string.Join(", ", temp2)
-            //    + "\nstring giaima: " + giaima
-            //    + "\nint[]b: " + string.Join(", ", b)
-            //    + "\nint[]c: " + string.Join(", ", c)
-            //    + "\nstr: " + str
-            //    + "\nbyte[]: " + string.Join(", ", data2)
-            //    + "\nstring, bản rõ: " + Encoding.Unicode.GetString(data2)
-            //    , "Debug nè cha nội", MessageBoxButton.OK, MessageBoxImage.Information);
+            //    "(1): " + ChuoiVao
+            //    + "\n(2): " + string.Join(", ", temp2)
+            //    + "\n(3): " + giaima
+            //    + "\n(4): " + string.Join(", ", b)
+            //    + "\n(5): " + string.Join(", ", c)
+            //    + "\n(6): " + str
+            //    + "\n(7): " + string.Join(", ", data2)
+            //    + "\n(8): " + Encoding.Unicode.GetString(data2)
+            //    , "Show data for Documents: decrypt", MessageBoxButton.OK, MessageBoxImage.Information);
 
 
         }
