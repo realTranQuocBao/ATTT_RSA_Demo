@@ -108,6 +108,46 @@ namespace ATTT_NHOM6_RSA_DEMO
             return kiemtra;
         }
         // "Hàm kiểm tra hai số nguyên tố cùng nhau"
+
+        private int RSA_calculateD(long soE, long soFiN)
+        {
+            long a = soE;
+            long b = soFiN;
+
+            //EuclidExtendedCalulate
+            long x0 = 1, xn = 1;
+            long y0 = 0, yn = 0;
+            long x1 = 0;
+            long y1 = 1;
+            long q;
+            long r = a % b;
+
+            while (r > 0)
+            {
+                q = a / b;
+                xn = x0 - q * x1;
+                yn = y0 - q * y1;
+
+                x0 = x1;
+                y0 = y1;
+                x1 = xn;
+                y1 = yn;
+                a = b;
+                b = r;
+                r = a % b;
+            }
+            //xn yn b
+            if (xn < 0) xn = (RSA_soPhi_n + xn);
+
+            //MessageBox.Show(
+            //    "(xn): " + xn
+            //    +"\n(yn): " + yn
+            //    +"\n(b): " + b
+            //    , "Show data for Documents: extended euclid", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            return (int)xn;
+        }
+
         private bool RSA_nguyenToCungNhau(int ai, int bi)
         {
             bool ktx_;
@@ -166,14 +206,23 @@ namespace ATTT_NHOM6_RSA_DEMO
             while (!RSA_nguyenToCungNhau(RSA_soE, RSA_soPhi_n));
             rsa_soE.Text = RSA_soE.ToString();
 
-            //Tính d là nghịch đảo modular của e
-            RSA_soD = 0;
-            int i = 2;
-            while (((1 + i * RSA_soPhi_n) % RSA_soE) != 0 || RSA_soD <= 0)
-            {
-                i++;
-                RSA_soD = (1 + i * RSA_soPhi_n) / RSA_soE;
-            }
+            //MessageBox.Show(
+            //    "d = " + RSA_calculateD(RSA_soE, RSA_soPhi_n)
+            //    , "Show data for Documents: calculate d", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            //Tính d là nghịch đảo modular của e (bằng Euclid mở rộng)
+            RSA_soD = RSA_calculateD(RSA_soE, RSA_soPhi_n);
+
+            //code cũ không dùng Euclid mở rộng
+            //RSA_soD = 0;
+            //int i = 2;
+            //while (((1 + i * RSA_soPhi_n) % RSA_soE) != 0 || RSA_soD <= 0)
+            //{
+            //    i++;
+            //    RSA_soD = (1 + i * RSA_soPhi_n) / RSA_soE;
+            //}
+
+
             rsa_soD.Text = RSA_soD.ToString();
             rsa_sourceD.Text = RSA_soD.ToString();
             rsa_sourceN.Text = RSA_soN.ToString();
